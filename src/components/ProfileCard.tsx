@@ -9,6 +9,7 @@ import Avatar from "./Avatar";
 const ProfileCard= () => {
     const [user, setUser] = useState<Models.User<Models.Preferences> | null>(null);
 
+    //Getting the user data after login
     useEffect(() => {
         (async () => {
             const userData = await appwriteService.getCurrentUser()
