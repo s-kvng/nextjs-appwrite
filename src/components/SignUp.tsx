@@ -13,6 +13,7 @@ const SignUp = () =>{
         password: "",
         name : "",
     })
+    const [ isLoading , setIsLoading ] = useState(false)
 
     const [error , setError] = useState("")
 
@@ -20,21 +21,31 @@ const SignUp = () =>{
 
     const create = async (e: FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
+        setIsLoading(true)
         const { email, password, name } = formData
 
         try {
             const userData = await appwriteService.createUserAccount({email, password, name})
             if(userData){
                 setAuthStatus(true)
+                setIsLoading(false)
                 router.push("/profile")
             }
         } catch (error: any) {
             setError(error.message)
+            setIsLoading(false)
         }
     }
 
     return (
-        <div className="flex items-center justify-center">
+        <>
+            {
+                isLoading ? 
+                <div className="flex items-center justify-center w-full">
+                    Loading...
+                </div> : 
+                (
+                    <div className="flex items-center justify-center">
             <div className={`mx-auto w-full max-w-lg bg-gray-200/50 rounded-xl p-10`}>
                 <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[60px]">
@@ -126,7 +137,10 @@ const SignUp = () =>{
                 </div>
             </form>
         </div>
-    </div>
+                    </div>
+                )
+            }
+        </>
     )
 }
 
