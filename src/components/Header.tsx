@@ -78,7 +78,7 @@ export default function Header() {
                 </button>
                 <div
                     className={` z-10 ml-3 space-y-1 sm:ml-6 absolute top-0 right-0 bg-white shadow-xl overflow-hidden h-screen w-full transition transform duration-300 ease-in-out ${
-                    isOpen ? '' : 'translate-x-full' // Slide menu in from right
+                    isOpen ? 'translate-X-full' : 'translate-x-full hidden' // Slide menu in from right
                     }`}
                     id="mobile-menu"
                     aria-hidden={!isOpen} // Update aria-hidden based on isOpen state
