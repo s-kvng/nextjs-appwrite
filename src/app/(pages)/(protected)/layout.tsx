@@ -17,7 +17,11 @@ const ProtectedLayout = ({ children }: Readonly<{
         return <></>;
     }
 
-  return children
+  return (
+    <>
+    {children}
+    </>
+  )
 }
 
 export default ProtectedLayout
