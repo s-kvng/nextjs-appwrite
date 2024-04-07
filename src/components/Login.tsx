@@ -12,6 +12,7 @@ const Login = () => {
         email : "",
         password: "",
     })
+    const [ isLoading , setIsLoading ] = useState(false)
 
     const [error , setError] = useState("")
 
@@ -19,20 +20,28 @@ const Login = () => {
 
     const login = async (e: FormEvent<HTMLFormElement>) =>{
                 e.preventDefault()
+                setIsLoading(true)
                 const { email, password } = formData
         
                 try {
                     const session = await appwriteService.login({email, password})
                     if(session){
                         setAuthStatus(true)
+                        setIsLoading(false)
                         router.push("/profile")
                     }
                 } catch (error: any) {
                     setError(error.message)
+                    setIsLoading(false)
                 }
     }
 
   return (
+    <>
+    {
+        isLoading ? <div className="flex items-center justify-center w-full">
+            Loading...
+        </div> : (
     <div className="flex items-center justify-center w-full">
     <div className={`mx-auto w-full max-w-lg bg-gray-200/50 rounded-xl p-10`}>
         <div className="mb-2 flex justify-center">
@@ -107,7 +116,10 @@ const Login = () => {
             </div>
         </form>
     </div>
-</div>
+    </div>
+        )
+    }
+    </>
   )
 }
 
