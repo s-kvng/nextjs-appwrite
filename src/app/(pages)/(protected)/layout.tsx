@@ -14,9 +14,7 @@ const ProtectedLayout = ({ children }: Readonly<{
     //custom middleware
     if(!authStatus){
         router.replace("/login")
-        return <>
-        <div>redirecting...</div>
-        </>;
+        return <></>;
     }
 
   return children
